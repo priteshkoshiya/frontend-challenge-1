@@ -4,11 +4,11 @@ import React, { useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { todosState } from '../state/atoms';
 import { filteredTodosSelector, todoStatsSelector } from '../state/selectors';
-import { TodoItem } from './TodoItem';
-import { TodoInput } from './TodoInput';
-import { TodoActions } from './TodoActions';
+import { TodoItem } from './todo-item/todo-item';
 import { subMinutes, subHours, subDays } from 'date-fns';
 import { CheckCircle2 } from 'lucide-react';
+import { TodoActions } from './todo-actions';
+import { TodoInput } from './todo-input';
 
 export const TodoList: React.FC = () => {
   const [todos, setTodos] = useRecoilState(todosState);
@@ -70,7 +70,12 @@ export const TodoList: React.FC = () => {
         ) : (
           filteredTodos.map((todo, index) => (
             <div key={todo.id} className={index === filteredTodos.length - 1 ? 'border-gray-200' : ''}>
-              <TodoItem todo={todo} />
+              <TodoItem
+                todo={todo}
+                onToggle={() => {}}
+                onDelete={() => {}}
+                onEdit={() => {}}
+              />
             </div>
           ))
         )}

@@ -1,6 +1,3 @@
-export interface Todo {
-  id: string;
-  text: string;
-  completed: boolean;
-  createdAt?: Date;
-}
+import { Todo } from './todo';
+
+export type { Todo };

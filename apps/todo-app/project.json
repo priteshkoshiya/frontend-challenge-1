@@ -1,0 +1,62 @@
+{
+  "name": "todo-app",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/todo-app",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/next:build",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/apps/todo-app"
+      },
+      "configurations": {
+        "development": {
+          "outputPath": "apps/todo-app"
+        },
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx/next:server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "todo-app:build",
+        "dev": true,
+        "port": 3000
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "todo-app:build:development",
+          "dev": true,
+          "port": 3000
+        },
+        "production": {
+          "buildTarget": "todo-app:build:production",
+          "dev": false,
+          "port": 3000
+        }
+      }
+    },
+    "export": {
+      "executor": "@nx/next:export",
+      "options": {
+        "buildTarget": "todo-app:build:production"
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/todo-app/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    }
+  },
+  "tags": []
+}
